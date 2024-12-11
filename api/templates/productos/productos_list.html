@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Productos{% endblock %}
+
+{% block content %}
+<h1>Lista de Productos</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Inventario</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.categoria }}</td>
+            <td>${{ producto.precio }}</td>
+            <td>{{ producto.inventario }}</td>
+            <td>
+                <a href="{% url 'actualizar-producto' producto.id %}" class="button">Actualizar</a>
+                <a href="{% url 'eliminar-producto' producto.id %}" class="button">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hay productos disponibles.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'crear-producto' %}" class="button">Crear Producto</a>
+<a href="{% url 'export-productos-csv' %}" class="btn btn-primary">Descargar Productos en CSV</a>
+{% endblock %}
